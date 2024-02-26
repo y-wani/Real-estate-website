@@ -1,0 +1,107 @@
+.nav--box {
+    background-color: black;
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-inline: 3rem;
+    border: 1px;
+    border-bottom:  1px solid white;
+    justify-content: space-between;
+}
+
+.logo--box {
+    display: flex;
+
+}
+
+.logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.8rem;
+}
+
+.logo--text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Update your navbar.css file */
+
+.search--box {
+  background-color: #333333; /* Set the background color to grey */
+  border: none; /* Remove any borders */
+  display: flex;
+  align-items: center;
+  padding: 0.5rem; /* Add some padding for better visual appearance */
+  margin-right: 75rem;
+  border-radius: 12px;
+  color: white;
+  width: 20%;
+ 
+}
+
+.search--box input {
+  border: none; /* Remove input border */
+  background-color:#333333;
+  outline: none; /* Remove input outline on focus */
+  width: 100%; /* Take up the full width of the container */
+  padding: 0.5rem; /* Add some padding inside the input */
+  margin-right: 0.5rem; /* Adjust the margin to move the input towards the left */
+  color: #CCCCCC;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.search--box input::placeholder {
+    color: #CCCCCC;
+    font-size: 16px;
+    
+}
+/* Style for the magnifying glass icon */
+.search--icon {
+  color: #CCCCCC; /* Set the color to white */
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+
+.posting-buttons--container {
+    display: flex;
+    margin-right: 6rem;
+    align-items: center; /* Align buttons vertically in the middle */
+}
+
+.posting-button {
+  padding: 1rem 2rem;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+  color: #333333;
+}
+
+.posting-button--white {
+  background-color: white;
+  color: #333333;
+  border-radius: 8px;
+  border: 2px solid #333333;
+}
+
+.button-separator {
+  width: 1rem; /* Adjust the space between buttons */
+}
+
+.posting-button--grey {
+  background-color: #333333;
+  color: white;
+  border-radius: 8px;
+  border: 2px solid #333333;
+}
+
+.posting-button:hover {
+  background-color: #CCCCCC;
+  color: #333333;
+}
