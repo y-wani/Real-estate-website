@@ -1,5 +1,5 @@
 'use client';
-import "../styles/navbar.css";
+import "../../styles/navbar.css";
 import React from 'react'
 import { HiMagnifyingGlass } from "react-icons/hi2";
 

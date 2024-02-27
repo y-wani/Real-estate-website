@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-inline: 3rem;
+    padding-inline: 2%;
     border: 1px;
     border-bottom:  1px solid white;
     justify-content: space-between;
@@ -13,18 +13,18 @@
 
 .logo--box {
     display: flex;
-
 }
 
 .logo {
     width: 20px;
     height: 20px;
-    margin-right: 0.8rem;
+    
 }
 
 .logo--text {
     font-size: 18px;
     font-weight: bold;
+    margin-left: 10%;
 }
 
 /* Update your navbar.css file */
@@ -34,7 +34,7 @@
   border: none; /* Remove any borders */
   display: flex;
   align-items: center;
-  padding: 0.5rem; /* Add some padding for better visual appearance */
+  padding: 0.4%; /* Add some padding for better visual appearance */
   margin-right: 52%;
   border-radius: 12px;
   color: white;
@@ -47,8 +47,8 @@
   background-color:#333333;
   outline: none; /* Remove input outline on focus */
   width: 100%; /* Take up the full width of the container */
-  padding: 0.5rem; /* Add some padding inside the input */
-  margin-right: 0.5rem; /* Adjust the margin to move the input towards the left */
+  padding: 1%; /* Add some padding inside the input */
+  margin-right: 1%; /* Adjust the margin to move the input towards the left */
   color: #CCCCCC;
   font-size: 16px;
   margin-left: 5px;
@@ -67,7 +67,7 @@
 }
 
 .posting-buttons--container {
-    display: flex;
+    display: flex; 
     margin-right: 2%;
     align-items: center; /* Align buttons vertically in the middle */
     width: 15%;

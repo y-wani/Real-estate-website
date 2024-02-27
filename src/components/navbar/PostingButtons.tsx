@@ -1,6 +1,7 @@
 // PostingButtons.jsx
 'use client';
 import React from 'react';
+import "../../styles/navbar.css";
 
 const PostingButtons = () => {
   return (

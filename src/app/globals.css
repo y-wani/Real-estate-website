@@ -5,4 +5,5 @@ body {
   color: #FFFFFF;
   font-family: 'Work Sans', sans-serif;
   margin: 0px;
+  overflow-x: hidden;
 }

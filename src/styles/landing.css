@@ -1,0 +1,135 @@
+.main-box {
+    padding-inline: 10%;
+    padding-top: 1.35%;
+    text-align: center; /* Center the content */
+    overflow-y: hidden;
+}
+
+.opening-img-box {
+    position: relative; /* Set the container to relative positioning */
+    height: 55vh; /* Set the height to 65% of the viewport height */
+    overflow: hidden; /* Hide any overflow beyond the specified height */
+    border-radius: 20px;
+    margin-bottom: 1.75%;
+}
+
+.image--main {
+    width: 100%; /* Take up 100% of the width */
+    height: 100%; /* Take up 100% of the height within the container */
+    object-fit: cover; /* Maintain the aspect ratio and cover the entire container */
+    filter: blur(4px);
+    
+}
+
+.img-text {
+    position: absolute;
+    bottom: 14.5%;
+    left: 6%;
+    padding: 20px; /* Add padding to the text */
+    color: white;
+    font-size: 4.5em;
+    
+}
+/* Style your LandingSearch component in a CSS file */
+.landing-search--box {
+    width: 750px;
+    height: 6%;
+    position: absolute;
+    bottom: 12.5%;
+    left: 7.5%;    
+    display: flex;
+    align-items: center;
+    background-color: black;
+    border-radius: 12px;
+    padding: 10px;
+    margin-right: 55%;
+    color: white;
+    
+    padding-left: 1%;
+  }
+  
+  .landing-search--icon {
+    margin-right: 0.5%;
+    padding-left: 1%;
+  }
+  
+  .landing-search--box input {
+    border: none;
+    background-color: black;
+    color: #CCCCCC;
+    outline: none;
+    width: 100%;
+    padding: 1.3%;
+    padding-top: 2%;
+    
+    
+  }
+  
+  .landing-search--box button {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    padding: 1% 3%;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-left: 20px; 
+    font-size: 15px;
+    font-weight: 1000;
+  }
+
+  .landing-search--box input::placeholder {
+    font-size: 25px;
+  }
+  
+  .landing-search--box button:hover {
+    background-color: #999999;
+  }
+
+  .heading--text--fl {
+    text-align: left;
+    margin-bottom: 0.5%;
+  }
+
+  .featured-list-bx {
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    align-items: flex-start;
+    
+  }
+
+  /* Add this to your existing CSS file or create a new one for the card styles */
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+  }
+  
+  .card { 
+    border-radius: 12px;
+    margin: 0.001%;
+    padding: 12px;
+    width: 18vw; /* Adjust the width based on your preference */
+  }
+  
+  .card-img {
+    width: 100%;
+    height: auto; /* Adjust the height based on your preference */
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .card-desc {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: medium;
+  }
+  
+  .card-price {
+    margin-left: 15px;
+    font-size: 14px;
+    color: #666;
+  }
