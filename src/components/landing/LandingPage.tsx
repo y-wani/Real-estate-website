@@ -4,6 +4,7 @@ import Image from 'next/image';
 import landingimg from "../../../public/landingImg.png"
 import LandingSearch from './LandingSearch';
 import FeaturedList from './FeaturedList';
+import Info from './Info';
 
 const LandingPage = () => {
 
@@ -20,6 +21,7 @@ const LandingPage = () => {
         <div className='featured-list-bx'> 
         <FeaturedList />
         </div>
+        <Info />
     </div>
   )
 }

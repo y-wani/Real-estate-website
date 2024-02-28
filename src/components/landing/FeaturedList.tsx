@@ -2,6 +2,7 @@
 import React from "react";
 import dummyimg from "../../../public/listdummy.png";
 import Image from "next/image";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const FeaturedList = () => {
   const dummyData = [
@@ -36,6 +37,9 @@ const FeaturedList = () => {
           <span className="card-price">{item.price}</span>
         </div>
       ))}
+      <button className="see-more-button" onClick={() => alert('See More Clicked')}>
+        <FaLongArrowAltRight color="white" size={35}/>
+      </button>
     </div>
   );
 };
