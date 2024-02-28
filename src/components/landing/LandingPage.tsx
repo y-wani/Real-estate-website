@@ -5,6 +5,7 @@ import landingimg from "../../../public/landingImg.png"
 import LandingSearch from './LandingSearch';
 import FeaturedList from './FeaturedList';
 import Info from './Info';
+import Offer from './Offer';
 
 const LandingPage = () => {
 
@@ -22,6 +23,7 @@ const LandingPage = () => {
         <FeaturedList />
         </div>
         <Info />
+        <Offer />
     </div>
   )
 }
