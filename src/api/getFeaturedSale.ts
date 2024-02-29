@@ -5,11 +5,12 @@ type Props = {
 
   const getFeaturedSale = async (stateCode: string, city: string) => {
     const url = `https://us-real-estate.p.rapidapi.com/v3/for-sale?state_code=${stateCode}&city=${city}&sort=newest&offset=0&limit=42`;
+    console.log(process.env.NEXT_PUBLIC_API_KEY_REAL_ESTATE);
   
     const options = {
       method: 'GET',
       headers: {
-        'X-RapidAPI-Key': '4e79d29bcamsh7cede75efafa279p1e9b7ejsne6cf3392598b',
+        'X-RapidAPI-Key': `4e79d29bcamsh7cede75efafa279p1e9b7ejsne6cf3392598b`,
         'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com',
       },
     };

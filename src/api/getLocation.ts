@@ -2,10 +2,12 @@ type Location = {
     lat: number;
     long: number;
   };
+
+
   
   const getLocation = async ({ lat, long }: Location): Promise<{ city: string | null; stateCode: string | null }> => {
-    const api_key = "AIzaSyAnOlqATbLG7chCJV3JLeVXAtYTlsgWpPc";
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${api_key}`;
+    
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.NEXT_PUBLIC_API_KEY_GOOGLE}`;
   
     const response = await fetch(url);
     const data = await response.json();

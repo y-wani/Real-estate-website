@@ -7,7 +7,7 @@ import dummyimg from "../../../../../public/listdummy.png";
 import Image from "next/image";
 import getFeaturedSale from "@/api/getFeaturedSale";
 import { useEffect, useState, Suspense } from "react";
-import Loading from "./Loading";
+import Loading from "./loading";
 
 
 const Page = () => {
