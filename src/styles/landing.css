@@ -98,11 +98,18 @@
   justify-content: space-around;
 }
 
+
+
 .card {
   border-radius: 12px;
   margin: 0.001%;
   padding: 12px;
   width: 18vw;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card-img {
@@ -148,6 +155,7 @@
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 4px 0px 0px rgba(199, 199, 199, 0.1); /* Added drop shadow */
+
 }
 
 
@@ -160,23 +168,25 @@
 
 .sub-selling-line {
   font-size: 1.3em;
-  color: #666666;
+  color: #797676;
   margin-bottom: 30px;
 }
 
 .stats-container {
   display: flex;
   justify-content: space-around;
+  
 }
 
 .stat-block {
   text-align: center;
+  
 }
 
 .stat-value {
   font-size: 2em;
   font-weight: bold;
-  color: #333333;
+  color: #797676;
 }
 
 .stat-label {

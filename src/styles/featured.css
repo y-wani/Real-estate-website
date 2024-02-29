@@ -1,0 +1,63 @@
+.listing-page {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .property-section {
+    flex: 1;
+    margin: 0 10px;
+  }
+  
+  .listing-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 15px;
+  }
+  
+  .listing-card {
+    border-radius: 12px;
+    margin: 0.001%;
+    padding: 12px;
+    width: calc(20.5% - 15px);
+    margin-bottom: 15px;
+    box-shadow: 0 4px 0px 0px rgba(199, 199, 199, 0.1); /* Added drop shadow */
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* evenly spread text */
+  }
+  
+  .listing-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .listing-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .card-description {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: medium;
+  }
+  
+  .card-price {
+    margin-top: 10px; /* Added margin-top to separate price from description */
+    font-size: 18px;
+    color: white;
+  }
+  
+  .card-details {
+    display: flex;
+    justify-content: space-between; /* evenly spread details */
+    margin-top: 10px; /* Added margin-top for spacing */
+    font-size: 16px;
+    color: #666;
+  }
+  
