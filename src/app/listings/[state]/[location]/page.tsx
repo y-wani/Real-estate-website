@@ -8,7 +8,7 @@ import Image from "next/image";
 import getFeaturedSale from "@/api/getFeaturedSale";
 import { useEffect, useState, Suspense } from "react";
 import Loading from "./loading";
-
+import getFeaturedRent from "@/api/getFeaturedRent";
 
 const Page = () => {
   const params = useParams();
@@ -20,9 +20,14 @@ const Page = () => {
     ? decodeURIComponent(params.location[0])
     : decodeURIComponent(params.location || "");
 
-  const [resultsData, setResultsData] = useState<Listing[]>([]);
 
-  const fetchData = async () => {
+
+  const [saleData, setSaleData] = useState<Listing[]>([]);
+  const [rentData, setRentData] = useState<Listing[]>([]);
+
+  // Fetch sale properties
+  
+  const fetchSaleData = async () => {
     try {
       const response: ApiResponse = await getFeaturedSale(state_code, city);
       console.log(response);
@@ -33,7 +38,7 @@ const Page = () => {
         response.data.home_search &&
         response.data.home_search.results
       ) {
-        setResultsData(response.data.home_search.results);
+        setSaleData(response.data.home_search.results);
       } else {
         console.error("Invalid response structure from getFeaturedSale.");
       }
@@ -42,13 +47,36 @@ const Page = () => {
     }
   };
 
+  // Fetch rent properties
+  const fetchRentData = async () => {
+    try {
+      const response: ApiResponse = await getFeaturedRent(state_code, city);
+      console.log(response);
+
+      if (
+        response &&
+        response.data &&
+        response.data.home_search &&
+        response.data.home_search.results
+      ) {
+        setRentData(response.data.home_search.results);
+      } else {
+        console.error("Invalid response structure from getFeaturedRent.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Use useEffect to fetch data on component mount or when state_code or city changes
   useEffect(() => {
-    fetchData();
+    fetchSaleData();
+    fetchRentData();
   }, [state_code, city]);
 
   useEffect(() => {
-    console.log(resultsData);
-  }, [resultsData]);
+    console.log(rentData);
+  }, []);
 
   const dummyData = [
     {
@@ -118,14 +146,48 @@ const Page = () => {
   ];
 
   return (
-    
     <div className="listing-page">
       <div className="property-section">
         <h2>Available Properties for Sale in {city}</h2>
-        
         <div className="listing-container">
-        <Suspense fallback= { <Loading /> }> 
-          {resultsData.map((item, index) => (
+          <Suspense fallback={<Loading />}>
+            {saleData.map((item, index) => (
+              <div key={index} className="listing-card">
+                {item.primary_photo && (
+                  <Image
+                    src={item.primary_photo?.href}
+                    alt="img"
+                    width={1000}
+                    height={1000}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+                <span className="card-description">
+                  {item.branding?.[0]?.name ?? "No Branding"}
+                </span>
+                <span className="card-price">${item.list_price}</span>
+                <span className="card-details">
+                  {item.description?.beds ?? 0} Beds |{" "}
+                  {item.description?.baths ?? 0} Baths |{" "}
+                  {item.description?.sqft ?? 0} Sqft
+                </span>
+              </div>
+            ))}
+          </Suspense>
+        </div>
+      </div>
+
+      <div className="property-section">
+        <h2>Exclusive Properties for Rent in {city}</h2>
+        <div className="listing-container">
+
+
+          
+          {rentData.map((item, index) => (
             <div key={index} className="listing-card">
               {item.primary_photo && (
                 <Image
@@ -133,7 +195,7 @@ const Page = () => {
                   alt="img"
                   width={1000}
                   height={1000}
-                  style={{ height: "100%", width: "100%", objectFit: "cover",}}
+                  style={{ height: "100%", width: "100%", objectFit: "cover" }}
                 />
               )}
               <span className="card-description">
@@ -147,27 +209,10 @@ const Page = () => {
               </span>
             </div>
           ))}
-          </Suspense>
-        </div>
-      </div>
-
-      <div className="property-section">
-        <h2>Exclusive Properties for Rent in {city}</h2>
-        <div className="listing-container">
-          {dummyData.map((item, index) => (
-            <div key={index} className="listing-card">
-              <Image src={item.img} alt={item.desc} />
-              <span className="card-description">{item.desc}</span>
-              <span className="card-price">{item.price}</span>
-              <span className="card-details">
-                {item.beds} Beds | {item.baths} Baths | {item.sqft} Sqft
-              </span>
-            </div>
-          ))}
+          
         </div>
       </div>
     </div>
-    
   );
 };
 
