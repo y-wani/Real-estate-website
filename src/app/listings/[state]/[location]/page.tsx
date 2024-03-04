@@ -42,6 +42,7 @@ const Page = () => {
     }
   };
 
+  /*
   useEffect(() => {
     fetchData();
   }, [state_code, city]);
@@ -49,7 +50,8 @@ const Page = () => {
   useEffect(() => {
     console.log(resultsData);
   }, [resultsData]);
-
+  */
+ 
   const dummyData = [
     {
       img: dummyimg,
@@ -125,25 +127,13 @@ const Page = () => {
         
         <div className="listing-container">
         <Suspense fallback= { <Loading /> }> 
-          {resultsData.map((item, index) => (
+        {dummyData.map((item, index) => (
             <div key={index} className="listing-card">
-              {item.primary_photo && (
-                <Image
-                  src={item.primary_photo?.href}
-                  alt="img"
-                  width={1000}
-                  height={1000}
-                  style={{ height: "100%", width: "100%", objectFit: "cover",}}
-                />
-              )}
-              <span className="card-description">
-                {item.branding?.[0]?.name ?? "No Branding"}
-              </span>
-              <span className="card-price">${item.list_price}</span>
+              <Image src={item.img} alt={item.desc} />
+              <span className="card-description">{item.desc}</span>
+              <span className="card-price">{item.price}</span>
               <span className="card-details">
-                {item.description?.beds ?? 0} Beds |{" "}
-                {item.description?.baths ?? 0} Baths |{" "}
-                {item.description?.sqft ?? 0} Sqft
+                {item.beds} Beds | {item.baths} Baths | {item.sqft} Sqft
               </span>
             </div>
           ))}
@@ -152,7 +142,7 @@ const Page = () => {
       </div>
 
       <div className="property-section">
-        <h2>Exclusive Properties for Rent in {city}</h2>
+        <h2>Exclusive Properties for Rent in {city}</ h2>
         <div className="listing-container">
           {dummyData.map((item, index) => (
             <div key={index} className="listing-card">
