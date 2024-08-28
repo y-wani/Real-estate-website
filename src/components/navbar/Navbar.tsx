@@ -14,7 +14,7 @@ const Navbar = () => {
           <Link href="./" passHref>
             <Image src={logo} alt="logo" className="logo" width={20} height={20}/>
           </Link>
-          <div className="logo--text"> Homes.io</div>
+          <div className="logo--text"> Taste.io</div>
         </div>
         <Search />
         <PostingButtons />

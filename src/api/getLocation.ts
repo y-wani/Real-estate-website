@@ -1,31 +1,28 @@
 type Location = {
-    lat: number;
-    long: number;
-  };
+  city: string | null;
+  stateCode: string | null;
+};
 
-
-  
-  const getLocation = async ({ lat, long }: Location): Promise<{ city: string | null; stateCode: string | null }> => {
-    
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.NEXT_PUBLIC_API_KEY_GOOGLE}`;
-  
+const getLocation = async (): Promise<Location> => {
+  try {
+    // Replace 'YOUR_ACCESS_KEY' with your actual ipapi access key
+    const url = `https://api.ipapi.com/api/check?access_key=${process.env.NEXT_PUBLIC_API_KEY_GOOGLE}`;
     const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
     const data = await response.json();
-  
-    const cityComponent = data.results[0]?.address_components.find((component: any) =>
-      component.types.includes("locality")
-    );
-  
-    const stateCodeComponent = data.results[0]?.address_components.find((component: any) =>
-      component.types.includes("administrative_area_level_1")
-    );
-  
-    // Check if cityComponent and stateCodeComponent exist before accessing their properties
-    const city = cityComponent?.long_name || null;
-    const stateCode = stateCodeComponent?.short_name || null;
-  
-    return { city, stateCode };
-  };
-  
-  export default getLocation;
-  
+    
+    return {
+      city: data.city ?? null,
+      stateCode: data.region_code ?? null,
+    };
+  } catch (error) {
+    console.error('Error fetching location data:', error);
+    return { city: null, stateCode: null };
+  }
+};
+
+export default getLocation;

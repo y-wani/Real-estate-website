@@ -1,163 +1,92 @@
-// Page.js
 "use client";
-import React from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useParams } from "next/navigation";
 import "../../../../styles/featured.css";
-import dummyimg from "../../../../../public/listdummy.png";
+import dummyimg from "../../../../../public/download.png";
 import Image from "next/image";
-import getFeaturedSale from "@/api/getFeaturedSale";
-import { useEffect, useState, Suspense } from "react";
+import getLocationID from "@/api/getLocationId";
+import getFeaturedRestaurants from "@/api/getFeaturedRestaurants";
 import Loading from "./loading";
-
+import ImageFallback from "@/components/Accessory/ImageFallback";
 
 const Page = () => {
   const params = useParams();
   const state_code = Array.isArray(params.state)
-    ? decodeURIComponent(params.state[0]) // Extract the first element if it's an array
+    ? decodeURIComponent(params.state[0])
     : decodeURIComponent(params.state || "");
 
   const city = Array.isArray(params.location)
     ? decodeURIComponent(params.location[0])
     : decodeURIComponent(params.location || "");
 
-  const [resultsData, setResultsData] = useState<Listing[]>([]);
+  const [restaurantsData, setRestaurantsData] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [locationId, setLocationId] = useState<number | null>(null);
 
   const fetchData = async () => {
     try {
-      const response: ApiResponse = await getFeaturedSale(state_code, city);
-      console.log(response);
+      const id = await getLocationID(city);
+      if (id) {
+        setLocationId(id);
+        const response = await getFeaturedRestaurants(id);
+        console.log("Featured Restaurants Data:", response);
 
-      if (
-        response &&
-        response.data &&
-        response.data.home_search &&
-        response.data.home_search.results
-      ) {
-        setResultsData(response.data.home_search.results);
+        if (response && response.data && response.data.data) {
+          setRestaurantsData(response.data.data);
+        } else {
+          console.error(
+            "Invalid response structure from getFeaturedRestaurants."
+          );
+        }
       } else {
-        console.error("Invalid response structure from getFeaturedSale.");
+        console.error("Location ID is null.");
+        setError("Failed to get location ID.");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching data:", error);
+      setError("Failed to fetch restaurants.");
     }
   };
 
-  /*
   useEffect(() => {
     fetchData();
-  }, [state_code, city]);
-
-  useEffect(() => {
-    console.log(resultsData);
-  }, [resultsData]);
-  */
- 
-  const dummyData = [
-    {
-      img: dummyimg,
-      desc: "Luxury Modern Home in Beverly Hills",
-      price: "$4,500,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Historic Victorian in San Francisco",
-      price: "$1,200,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-      sqft: 2005,
-      beds: 4,
-      baths: 1,
-    },
-  ];
+  }, [city]);
 
   return (
-    
     <div className="listing-page">
       <div className="property-section">
-        <h2>Available Properties for Sale in {city}</h2>
-        
+        <h2>Featured Restaurants in {city}</h2>
+
         <div className="listing-container">
-        <Suspense fallback= { <Loading /> }> 
-        {dummyData.map((item, index) => (
-            <div key={index} className="listing-card">
-              <Image src={item.img} alt={item.desc} />
-              <span className="card-description">{item.desc}</span>
-              <span className="card-price">{item.price}</span>
-              <span className="card-details">
-                {item.beds} Beds | {item.baths} Baths | {item.sqft} Sqft
-              </span>
-            </div>
-          ))}
+          <Suspense fallback={<Loading />}>
+            {error && <p className="error-message">{error}</p>}
+            {restaurantsData.map((restaurant: any, index: number) => (
+              <div key={index} className="listing-card">
+                <ImageFallback
+                  src={restaurant.heroImgUrl}
+                  fallbackSrc={dummyimg}
+                  alt={restaurant.heroImgUrl ? `${restaurant.name} image` : "Placeholder image"}
+                  width={300}
+                  height={200}
+                  style={{ objectFit: "cover" }}
+                />
+
+                <div className="card-content">
+                  <span className="card-description">{restaurant.name}</span>
+                  <div className="card-price">
+                    Rating: {restaurant.averageRating}
+                  </div>
+                  <span className="card-details">
+                    {restaurant.currentOpenStatusText} | Price:{" "}
+                    {restaurant.priceTag}
+                  </span>
+                </div>
+              </div>
+            ))}
           </Suspense>
         </div>
       </div>
-
-      <div className="property-section">
-        <h2>Exclusive Properties for Rent in {city}</ h2>
-        <div className="listing-container">
-          {dummyData.map((item, index) => (
-            <div key={index} className="listing-card">
-              <Image src={item.img} alt={item.desc} />
-              <span className="card-description">{item.desc}</span>
-              <span className="card-price">{item.price}</span>
-              <span className="card-details">
-                {item.beds} Beds | {item.baths} Baths | {item.sqft} Sqft
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
-    
   );
 };
 

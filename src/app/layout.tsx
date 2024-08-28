@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 const workSans = Work_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Homes.io",
-  description: "Real estate website",
+  title: "Taste.io",
+  description: "Restaurant finder website",
 };
 
 export default function RootLayout({

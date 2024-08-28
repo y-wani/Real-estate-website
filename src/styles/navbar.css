@@ -1,33 +1,30 @@
 .nav--box {
-    background-color: black;
-    width: 100vw;
-    height: 8vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-inline: 2%;
-    border: 1px;
-    border-bottom:  1px solid white;
-    justify-content: space-between;
+  background-color: black;
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-inline: 2%;
+  border: 1px;
+  border-bottom: 1px solid white;
+  justify-content: space-between;
 }
 
 .logo--box {
-    display: flex;
+  display: flex;
 }
 
 .logo {
-    width: 20px;
-    height: 20px;
-    
+  width: 20px;
+  height: 20px;
 }
 
 .logo--text {
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 10%;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10%;
 }
-
-/* Update your navbar.css file */
 
 .search--box {
   background-color: #333333; /* Set the background color to grey */
@@ -39,12 +36,11 @@
   border-radius: 12px;
   color: white;
   width: 20%;
- 
 }
 
 .search--box input {
   border: none; /* Remove input border */
-  background-color:#333333;
+  background-color: #333333;
   outline: none; /* Remove input outline on focus */
   width: 100%; /* Take up the full width of the container */
   padding: 1%; /* Add some padding inside the input */
@@ -55,10 +51,10 @@
 }
 
 .search--box input::placeholder {
-    color: #CCCCCC;
-    font-size: 16px;
-    
+  color: #CCCCCC;
+  font-size: 16px;
 }
+
 /* Style for the magnifying glass icon */
 .search--icon {
   color: #CCCCCC; /* Set the color to white */
@@ -67,13 +63,17 @@
 }
 
 .posting-buttons--container {
-    display: flex; 
-    margin-right: 2%;
-    align-items: center; /* Align buttons vertically in the middle */
-    width: 15%;
+  display: flex;
+  margin-right: 2%;
+  align-items: center; /* Align buttons vertically in the middle */
+  width: 15%;
 }
 
+/* Reset default button styles for consistency */
 .posting-button {
+  appearance: none; /* Remove default styles in some browsers */
+  -webkit-appearance: none; /* Remove default styles in WebKit browsers */
+  -moz-appearance: none; /* Remove default styles in Mozilla browsers */
   padding: 4% 5%;
   font-size: 18px;
   font-weight: bold;
@@ -82,6 +82,9 @@
   outline: none;
   transition: background-color 0.3s ease;
   color: #333333;
+  background-color: transparent; /* Ensure a default background */
+  box-sizing: border-box; /* Ensure padding and border are included in width/height */
+  display: inline-block; /* Ensure button dimensions are respected */
 }
 
 .posting-button--white {
@@ -106,3 +109,12 @@
   background-color: #CCCCCC;
   color: #333333;
 }
+
+/* Explicitly set font properties for buttons */
+.posting-button {
+  font-family: inherit; /* Use the same font as the parent */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+

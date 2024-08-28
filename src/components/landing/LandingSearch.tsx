@@ -5,7 +5,7 @@ import { HiMagnifyingGlass } from 'react-icons/hi2';
 
 const LandingSearch = () => {
 
-    const placeholderText = "Search for homes, addresses, or neighborhoods";
+    const placeholderText = "Search for restaurants or food";
 
   return (
     <div className="landing-search--box">

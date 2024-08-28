@@ -1,106 +1,96 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import dummyimg from "../../../public/listdummy.png";
 import Image from "next/image";
-import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import getLocation from "@/api/getLocation";
+import getLocationID from "@/api/getLocationId";
+import getFeaturedRestaurants from "@/api/getFeaturedRestaurants"; // Import the function to fetch restaurants
 import { useRouter } from "next/navigation";
 import "../../styles/landing.css";
+import ImageFallback from "../Accessory/ImageFallback";
+import dummyimg from "../../../public/download.png"
 
 const FeaturedList = () => {
   const router = useRouter();
-  const [location, setLocation] = useState<Location_ll>({ lat: 0, long: 0 });
   const [userCity, setUserCity] = useState<{ city: string | null; stateCode: string | null }>({
     city: "New York",
-    stateCode: null,
+    stateCode: "NY",
   });
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ lat: latitude, long: longitude });
-        },
-        (error) => {
-          console.error(error.message);
-          // If there's an error fetching geolocation, you can set the default values here
-          setUserCity({
-            city: "New York",
-            stateCode: "NY",
-          });
-        }
-      );
-    } else {
-      // If geolocation is not supported, set default values
-      setUserCity({
-        city: "New York",
-        stateCode: "NY",
-      });
-    }
-  }, []); // Empty dependency array to run the effect only once
+  const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserCity = async () => {
       try {
-        const { city, stateCode } = await getLocation(location);
-        setUserCity({ city, stateCode });
+        const location = await getLocation();
+        setUserCity(location);
+        console.log("Fetched Location:", location);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching location:", error);
       }
     };
 
-    if (location.lat !== 0 || location.long !== 0) {
-      fetchUserCity();
-    }
-  }, [location]);
+    fetchUserCity();
+  }, []);
 
-  userCity && console.log(userCity)
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        setLoading(true);
+        if (userCity.city && userCity.stateCode) {
+          const locationId = await getLocationID(userCity.city); // Get location ID based on user's city
+          const response = await getFeaturedRestaurants(locationId);
+          if (response && response.data && response.data.data) {
+            setRestaurants(response.data.data.slice(0, 4)); // Slice to show only the top 4 restaurants
+          } else {
+            console.error("Invalid response structure from getFeaturedRestaurants.");
+            setError("Failed to load featured restaurants.");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
+        setError("Failed to fetch featured restaurants.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const dummyData = [
-    {
-      img: dummyimg,
-      desc: "Luxury Modern Home in Beverly Hills",
-      price: "$4,500,000",
-    },
-    {
-      img: dummyimg,
-      desc: "Historic Victorian in San Francisco",
-      price: "$1,200,000",
-    },
-    {
-      img: dummyimg,
-      desc: "Beachfront Bungalow in Santa Monica",
-      price: "$2,700,000",
-    },
-    {
-      img: dummyimg,
-      desc: "Cozy Craftsman in Echo Park",
-      price: "$900,000",
-    },
-  ];
+    fetchRestaurants();
+  }, [userCity]);
 
   const handleShowMore = () => {
     const { city, stateCode } = userCity;
+    console.log("Redirecting to:", `/listings/${stateCode}/${city}`);
     router.push(`/listings/${stateCode}/${city}`);
-  }
+  };
 
   return (
     <div className="card-container">
-      {dummyData.map((item, index) => (
-        <div key={index} className="card">
-          <Image src={item.img} alt={item.desc} className="card-img" />
-          <span className="card-desc">{item.desc}</span>
-          <span className="card-price">{item.price}</span>
-        </div>
-      ))}
-      
-        <button className="see-more-button" onClick={handleShowMore}>
-          <FaLongArrowAltRight color="white" size={35} />
-        </button>
-      
-
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        restaurants.map((restaurant, index) => (
+          <div key={index} className="card">
+            <ImageFallback
+                  src={restaurant.heroImgUrl}
+                  fallbackSrc={dummyimg}
+                  alt={restaurant.heroImgUrl ? `${restaurant.name} image` : "Placeholder image"}
+                  width={300}
+                  height={200}
+                  style={{ objectFit: "cover" }}
+                  className="card-img"
+                />
+            <span className="card-desc">{restaurant.name}</span>
+            <span className="card-price">Rating: {restaurant.averageRating}</span>
+          </div>
+        ))
+      )}
+      <button className="see-more-button" onClick={handleShowMore}>
+        <FaLongArrowAltRight color="white" size={35} />
+      </button>
     </div>
   );
 };
