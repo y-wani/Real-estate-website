@@ -9,6 +9,7 @@ interface ImageFallbackProps {
   width: number;
   height: number;
   style?: React.CSSProperties;
+  className?: string; // Add className to the props
 }
 
 const ImageFallback = ({ src, fallbackSrc, ...rest }: ImageFallbackProps) => {

@@ -8,7 +8,7 @@ import getFeaturedRestaurants from "@/api/getFeaturedRestaurants"; // Import the
 import { useRouter } from "next/navigation";
 import "../../styles/landing.css";
 import ImageFallback from "../Accessory/ImageFallback";
-import dummyimg from "../../../public/download.png"
+import dummyimg from "../../../public/download.png";
 
 const FeaturedList = () => {
   const router = useRouter();
@@ -40,12 +40,17 @@ const FeaturedList = () => {
         setLoading(true);
         if (userCity.city && userCity.stateCode) {
           const locationId = await getLocationID(userCity.city); // Get location ID based on user's city
-          const response = await getFeaturedRestaurants(locationId);
-          if (response && response.data && response.data.data) {
-            setRestaurants(response.data.data.slice(0, 4)); // Slice to show only the top 4 restaurants
+          if (locationId !== null) {  // Check that locationId is not null
+            const response = await getFeaturedRestaurants(locationId); // Only call if locationId is valid
+            if (response && response.data && response.data.data) {
+              setRestaurants(response.data.data.slice(0, 4)); // Slice to show only the top 4 restaurants
+            } else {
+              console.error("Invalid response structure from getFeaturedRestaurants.");
+              setError("Failed to load featured restaurants.");
+            }
           } else {
-            console.error("Invalid response structure from getFeaturedRestaurants.");
-            setError("Failed to load featured restaurants.");
+            console.error("Location ID is null.");
+            setError("Failed to get location ID.");
           }
         }
       } catch (error) {
@@ -75,14 +80,14 @@ const FeaturedList = () => {
         restaurants.map((restaurant, index) => (
           <div key={index} className="card">
             <ImageFallback
-                  src={restaurant.heroImgUrl}
-                  fallbackSrc={dummyimg}
-                  alt={restaurant.heroImgUrl ? `${restaurant.name} image` : "Placeholder image"}
-                  width={300}
-                  height={200}
-                  style={{ objectFit: "cover" }}
-                  className="card-img"
-                />
+              src={restaurant.heroImgUrl}
+              fallbackSrc={dummyimg}
+              alt={restaurant.heroImgUrl ? `${restaurant.name} image` : "Placeholder image"}
+              width={300}
+              height={200}
+              style={{ objectFit: "cover" }}
+              className="card-img"
+            />
             <span className="card-desc">{restaurant.name}</span>
             <span className="card-price">Rating: {restaurant.averageRating}</span>
           </div>
