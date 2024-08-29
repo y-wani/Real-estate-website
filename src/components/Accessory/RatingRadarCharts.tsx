@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactStars from 'react-stars';
+import { CSSProperties } from 'react';  // Import CSSProperties
 
 const ratings = [
   { name: 'Food', rating: 4.5 },
@@ -25,17 +26,22 @@ const RatingRadarChart = () => (
   </div>
 );
 
-const styles = {
+// Explicitly type the styles object using CSSProperties
+const styles: { 
+  container: CSSProperties;
+  ratingItem: CSSProperties;
+  ratingTitle: CSSProperties;
+} = {
   container: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: 'flex',  // flexDirection can only accept specific values
+    flexDirection: 'row', // Correct typing using one of the accepted values
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
     padding: '20px',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     maxWidth: '100%',
-    marginTop: "25px"
+    marginTop: '25px',
   },
   ratingItem: {
     display: 'flex',
