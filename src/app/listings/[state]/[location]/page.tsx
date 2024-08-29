@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, Suspense } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation"; // Import useRouter
 import "../../../../styles/featured.css";
 import dummyimg from "../../../../../public/download.png";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import ImageFallback from "@/components/Accessory/ImageFallback";
 
 const Page = () => {
   const params = useParams();
+  const router = useRouter(); // Initialize router
   const state_code = Array.isArray(params.state)
     ? decodeURIComponent(params.state[0])
     : decodeURIComponent(params.state || "");
@@ -52,6 +53,10 @@ const Page = () => {
     fetchData();
   }, [city]);
 
+  const handleCardClick = (restaurantId: number) => {
+    router.push(`/listings/${state_code}/${city}/${restaurantId}`); // Navigate to the desired URL path
+  };
+
   return (
     <div className="listing-page">
       <div className="property-section">
@@ -61,11 +66,18 @@ const Page = () => {
           <Suspense fallback={<Loading />}>
             {error && <p className="error-message">{error}</p>}
             {restaurantsData.map((restaurant: any, index: number) => (
-              <div key={index} className="listing-card">
+              <div
+                key={index}
+                className="listing-card"
+                onClick={() => handleCardClick(restaurant.locationId)} // Add onClick handler
+                style={{ cursor: "pointer" }} // Optional: change cursor to pointer to indicate clickable area
+              >
                 <ImageFallback
                   src={restaurant.heroImgUrl}
                   fallbackSrc={dummyimg}
-                  alt={restaurant.heroImgUrl ? `${restaurant.name} image` : "Placeholder image"}
+                  alt={
+                    restaurant.heroImgUrl ? `${restaurant.name} image` : "Placeholder image"
+                  }
                   width={300}
                   height={200}
                   style={{ objectFit: "cover" }}

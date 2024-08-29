@@ -1,0 +1,113 @@
+.main-box {
+    padding-inline: 10%;
+    padding-top: 1.35%;
+    text-align: center;
+}
+
+.opening-img-box {
+    position: relative;
+    height: 55vh;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: -3%;
+}
+
+.image--main {
+    width: 85%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(2.5px);
+    border-radius: 40px;
+}
+
+.img-text {
+    position: absolute;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    color: white;
+    font-size: 5em;
+    text-align: center;
+}
+
+.rating-box {
+    position: absolute;
+    bottom: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-size: 2em;
+}
+
+.main-details-box {
+    padding: 5%;
+}
+
+.details-container {
+    padding: 20px;
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 2.1em;
+    margin-bottom: 10px;
+}
+
+.section-description {
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    line-height: 1.5em;
+}
+
+.property-table {
+    width: 100%;
+    border-collapse: collapse; /* Ensures no gaps between borders */
+}
+
+.property-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #333; /* Adds a bottom border to each row */
+}
+
+.row-headings, .row-heading-results {
+    width: 50%;
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+.row-headings {
+    color: orange;
+}
+
+.row-headings span, .row-heading-results span {
+    margin-bottom: 10px; /* Adds spacing between heading and value */
+    text-align: left; /* Aligns text to the left */
+}
+
+.row-heading-results span:last-child {
+    text-align: left; /* Ensures alignment for the right column */
+}
+
+/* Additional styles for more refined control */
+
+
+.property-row:nth-child(even) {
+    border-top: 2px solid white; /* Thickens the top border between rows */
+    border-bottom: 2px solid white;
+}
+
+.property-row:last-child {
+    border-bottom: none; /* Removes the bottom border from the last row */
+}
+
+.card-img-rest-photo{
+    
+}
