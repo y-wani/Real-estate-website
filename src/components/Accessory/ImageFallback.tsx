@@ -1,9 +1,14 @@
 // ImageFallback.tsx
-import Image, { ImageProps } from "next/image";
+import Image, { StaticImageData } from 'next/image';
 import { useEffect, useState } from "react";
 
-interface ImageFallbackProps extends ImageProps {
-  fallbackSrc: string;  // The fallback image source
+interface ImageFallbackProps {
+  src: string | StaticImageData;  // Accept both string and StaticImageData
+  fallbackSrc: string | StaticImageData;  // Accept both types
+  alt: string;
+  width: number;
+  height: number;
+  style?: React.CSSProperties;
 }
 
 const ImageFallback = ({ src, fallbackSrc, ...rest }: ImageFallbackProps) => {

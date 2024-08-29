@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const getRestDetails = async (restaurantsId, currencyCode = 'USD') => {
+// Explicitly type the function parameters
+const getRestDetails = async (restaurantsId: string, currencyCode: string = 'USD') => {
   const options = {
     method: 'GET',
     url: 'https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/getRestaurantDetails',
